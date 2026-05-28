@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Detailed download charts for HEX.pm Elixir packages" />
+    <title>hex-stats — Elixir package download charts</title>
+    <link rel="stylesheet" href="/src/styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <h1>hex-stats</h1>
+        <span class="subtitle">HEX.pm download charts</span>
+      </div>
+      <div class="topbar-actions">
+        <button id="theme-toggle" class="icon-btn" title="Toggle theme">◐</button>
+        <a class="icon-btn" href="https://hex.pm" target="_blank" rel="noopener">hex.pm</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="panel search-panel">
+        <div class="search-wrap">
+          <input
+            id="package-search"
+            type="search"
+            placeholder="Search Elixir packages on HEX.pm…"
+            autocomplete="off"
+            spellcheck="false"
+          />
+          <ul id="search-results" class="search-results" hidden></ul>
+        </div>
+        <div id="package-chips" class="chip-row"></div>
+      </section>
+
+      <section id="aggregate-panel" class="panel aggregate-panel"></section>
+
+      <section class="panel controls-panel">
+        <div class="controls-grid">
+          <label>
+            <span>Granularity</span>
+            <select id="ctrl-granularity">
+              <option value="day" selected>Daily</option>
+              <option value="month">Monthly</option>
+            </select>
+          </label>
+          <label>
+            <span>Chart type</span>
+            <select id="ctrl-chart-type">
+              <option value="line" selected>Line</option>
+              <option value="bar">Bar</option>
+              <option value="area">Area</option>
+            </select>
+          </label>
+          <label>
+            <span>Y-axis scale</span>
+            <select id="ctrl-scale">
+              <option value="linear" selected>Linear</option>
+              <option value="log">Log</option>
+            </select>
+          </label>
+          <label>
+            <span>Smoothing</span>
+            <select id="ctrl-smoothing">
+              <option value="0" selected>None</option>
+              <option value="7">7-period avg</option>
+              <option value="30">30-period avg</option>
+            </select>
+          </label>
+          <label>
+            <span>Stacking</span>
+            <select id="ctrl-stack">
+              <option value="off" selected>Off</option>
+              <option value="release">By release</option>
+              <option value="package">By package</option>
+            </select>
+          </label>
+          <label class="checkbox">
+            <input id="ctrl-show-totals" type="checkbox" checked />
+            <span>Package totals series</span>
+          </label>
+          <label class="checkbox">
+            <input id="ctrl-show-releases" type="checkbox" />
+            <span>Per-release series</span>
+          </label>
+          <label>
+            <span>Date range</span>
+            <select id="ctrl-range">
+              <option value="30">Last 30</option>
+              <option value="90">Last 90</option>
+              <option value="365">Last year</option>
+              <option value="all" selected>All</option>
+            </select>
+          </label>
+        </div>
+      </section>
+
+      <section class="panel chart-panel">
+        <div id="chart-progress" class="progress" hidden>
+          <div class="progress-bar"><div id="progress-fill"></div></div>
+          <span id="progress-label"></span>
+        </div>
+        <div id="main-chart" class="chart"></div>
+      </section>
+
+      <section class="panel chart-panel">
+        <h2 class="panel-title">Downloads per version <small id="focus-pkg-label"></small></h2>
+        <div id="version-chart" class="chart small"></div>
+      </section>
+
+      <section id="release-panels" class="panel release-panels"></section>
+    </main>
+
+    <footer class="footer">
+      <span>Data from <a href="https://hex.pm" target="_blank" rel="noopener">hex.pm</a> public API · </span>
+      <span><a href="https://github.com/" target="_blank" rel="noopener">source</a></span>
+    </footer>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
