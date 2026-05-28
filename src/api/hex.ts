@@ -21,7 +21,7 @@ export interface HexPackage {
   name: string;
   html_url: string;
   meta?: { description?: string; licenses?: string[] };
-  downloads: { all: number; recent: number; week: number; day: number };
+  downloads: { all?: number; recent?: number; week?: number; day?: number };
   releases: HexRelease[];
   latest_version: string;
   latest_stable_version?: string;

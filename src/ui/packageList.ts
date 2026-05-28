@@ -119,6 +119,6 @@ export function renderReleasePanels(opts: { onToggle: (pkg: string, version: str
   }
 }
 
-function formatNumber(n: number): string {
-  return n.toLocaleString();
+function formatNumber(n: number | undefined): string {
+  return (n ?? 0).toLocaleString();
 }
