@@ -64,7 +64,9 @@ async function loadReleases(name: string): Promise<void> {
 
   const granularity = state.controls.granularity;
   const releases = pkg.meta.releases;
-  const latestVersion = pkg.meta.latest_version;
+  const latestVersions = new Set(
+    [pkg.meta.latest_version, pkg.meta.latest_stable_version].filter(Boolean),
+  );
 
   const progress = document.getElementById("chart-progress")!;
   const fill = document.getElementById("progress-fill") as HTMLDivElement;
@@ -78,7 +80,7 @@ async function loadReleases(name: string): Promise<void> {
     POOL_LIMIT,
     async (r) => {
       try {
-        return await getReleaseDownloads(name, r.version, granularity, r.version === latestVersion);
+        return await getReleaseDownloads(name, r.version, granularity, latestVersions.has(r.version));
       } catch (err) {
         console.warn(`failed ${name}@${r.version}`, err);
         return null;
